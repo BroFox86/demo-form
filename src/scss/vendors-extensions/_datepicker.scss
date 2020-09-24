@@ -1,0 +1,36 @@
+.qs-datepicker-container {
+  width: 20em;
+  margin-top: 10px;
+  padding: 10px 5px;
+  border: 1px solid $color-border;
+  border-radius: var(--radius-small);
+  background: white;
+
+  .qs-controls {
+    background: transparent;
+    color: $color-text-primary;
+    text-transform: uppercase;
+  }
+
+  .qs-square.qs-day {
+    color: grey;
+  }
+
+  .qs-square.qs-num {
+    color: inherit;
+  }
+
+  .qs-square.qs-current {
+    color: $color-primary;
+  }
+
+  .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover {
+    background: $color-primary;
+    color: white;
+  }
+
+  .qs-square.qs-active {
+    background: green;
+    color: white;
+  }
+}

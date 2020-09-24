@@ -1,0 +1,208 @@
+:root {
+  --field-width: auto;
+  --field-height: 56px;
+  --field-padding: 0 16px 0 16px;
+  --field-border-radius: var(--radius-tiny);
+  --field-border-width: thin;
+  --field-border-color: #{$color-border};
+  --field-bg: white;
+  --field-bg-disabled: white;
+  --field-color: #{$color-text-primary};
+  --field-primary-color: #{$color-primary};
+  --field-line-height: normal;
+  --field-transition-duration: 200ms;
+}
+
+.field-group {
+  position: relative;
+  display: block;
+  width: var(--field-width);
+
+  &--textarea {
+    --field-height: auto;
+  }
+
+  &__caption {
+    display: block;
+    margin-bottom: 13px;
+  }
+
+  &__input-group {
+    position: relative;
+    flex-shrink: 0;
+    display: block;
+    height: var(--field-height);
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: var(--field-padding);
+    border-width: var(--field-border-width);
+    border-color: var(--field-border-color);
+    border-style: solid;
+    border-radius: 0; // Reset default iOS value.
+    border-radius: var(--field-border-radius);
+    background: var(--field-bg);
+    color: var(--field-color);
+    line-height: var(--field-line-height);
+    box-shadow: none;
+    appearance: none;
+    transition: all 150ms ease-in-out;
+
+    &::placeholder {
+      opacity: 0;
+      color: $color-text-dimmed;
+      transition: opacity 150ms;
+
+      .field-group.is-focused & {
+        opacity: 1;
+        transition-delay: var(--field-transition-duration);
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+    }
+
+    &:disabled {
+      opacity: .5;
+    }
+
+    .field-group.is-valid & {
+      border-color: $color-success;
+    }
+
+    .field-group.is-invalid & {
+      border-color: $color-danger;
+    }
+  }
+
+  &__label {
+    @include center(left, 10px);
+    display: block;
+    height: var(--field-height);
+    padding: 0 6px;
+    color: $color-text-dimmed;
+    line-height: var(--field-height);
+    transform-origin: 0 50%;
+    transition: all var(--field-transition-duration), background-color 0ms;
+    touch-action: manipulation;
+    pointer-events: none;
+
+    .field-group__input:focus ~ & {
+      color: $color-primary;
+    }
+
+    .field-group.is-focused & {
+      height: 1em;
+      background: white;
+      line-height: (16px * 1.25);
+      transform: translateY( calc(-56px/2 ) ) translateX( 3px ) scale(.8);
+      transition: all var(--field-transition-duration);
+    }
+
+    .field-group.is-focused.is-valid & {
+      color: $color-success;
+    }
+
+    .field-group.is-focused.is-invalid & {
+      color: $color-danger;
+    }
+  }
+
+  textarea {
+    height: auto;
+    padding-top: calc(56px / 3.5);
+    padding-bottom: calc(56px / 3.5);
+  }
+
+  &__triangle {
+    @include center(right, 16px);
+    @include triangle(bottom, $color-border, 12px, 6px);
+    pointer-events: none;
+
+    @media print {
+      display: none;
+    }
+
+    .field-group.is-valid & {
+      @include triangle(bottom, $color-success, 12px, 6px);
+    }
+
+    .field-group.is-invalid & {
+      @include triangle(bottom, $color-danger, 12px, 6px);
+    }
+  }
+
+  &__required {
+    @include center(right, 25px);
+    @include size(20px);
+    display: none;
+    fill: $color-danger;
+
+    .field-group.is-invalid & {
+      display: block;
+    }
+  }
+
+  &__icon {
+    @include center(right, 16px);
+    @include size(25px);
+    fill: $color-text-dimmed;
+    pointer-events: none;
+  }
+
+  //
+  // CC cards
+  //
+  &__card {
+    @include center(right, 16px);
+    display: none;
+    background-image: url("../images/sprite.png");
+
+    [data-card-type="amex"] & {
+      @include sprite-amex(50px);
+      display: block;
+    }
+
+    [data-card-type="visa"] & {
+      @include sprite-visa(50px);
+      display: block;
+    }
+
+    [data-card-type="mc"] & {
+      @include sprite-mc(50px);
+      display: block;
+    }
+
+    [data-card-type="discover"] & {
+      @include sprite-discover(50px);
+      display: block;
+    }
+  }
+
+  //
+  // Alert messages
+  //
+
+  &__message {
+    display: inline-block;
+    margin: 10px 0 0;
+    font-size: var(--font-size-small);
+
+    .is-invalid > & {
+      color: $color-danger;
+    }
+
+    .is-valid > & {
+      color: $color-success;
+    }
+
+    .checkbox & {
+      margin: 0 0 0 10px;
+    }
+  }
+}

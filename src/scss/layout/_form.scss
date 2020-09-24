@@ -1,0 +1,119 @@
+.form {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  border-radius: var(--radius-medium);
+  background: white;
+  box-shadow: var(--shadow-medium);
+
+  &__alert {
+    margin-bottom: 20px;
+  }
+
+  &__header {
+    padding: 25px 16px;
+    border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+    background: $color-secondary;
+    color: white;
+    text-align: center;
+
+    @media (min-width: $medium-screen) {
+      padding: 25px 60px;
+    }
+  }
+
+  &__logo {
+    display: block;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto -10px;
+    object-fit: cover;
+  }
+
+  &__heading {
+    margin: 0;
+    font-size: var(--font-size-h3);
+    font-weight: 500;
+  }
+
+  &__inner {
+    padding: 20px 16px;
+
+    @media (min-width: $medium-screen) {
+      padding: 20px 60px 25px;
+    }
+  }
+
+  &__amount {
+    --field-padding: 0 45px 0 16px;
+    --field-bg: #{$grey-245};
+    --field-border-radius: var(--radius-tiny) var(--radius-tiny) 0 0;
+    --field-border-width: 0 0 2px 0;
+    --field-border-color: #{$color-border};
+  }
+
+  &__fieldset {
+    margin-bottom: 30px;
+    padding: 0;
+  }
+
+  &__legend {
+    margin-bottom: 20px;
+    font-size: var(--font-size-h4);
+    font-weight: 500;
+  }
+
+  &__fields {
+    margin-bottom: 20px;
+
+    @media (min-width: $medium-screen) {
+      display: flex;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  &__field {
+    --field-width: 100%;
+
+    margin-bottom: 20px;
+
+    .form__fields & {
+      margin: 0 0 20px;
+
+      @media (min-width: $medium-screen) {
+        margin: 0 20px 0 0;
+      }
+    }
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+
+  &__birth-field {
+    @media (min-width: $medium-screen) {
+      --field-width: 140px;
+    }
+  }
+
+  &__caption {
+    margin-bottom: 10px;
+    font-size: var(--font-size-base);
+    font-weight: 400;
+  }
+
+  &__checkboxes {
+    margin-bottom: 30px;
+  }
+
+  &__buttons {
+    text-align: center;
+  }
+
+  &__btn:first-child {
+    margin-right: 20px;
+  }
+}

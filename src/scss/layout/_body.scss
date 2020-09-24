@@ -1,0 +1,14 @@
+.body {
+  margin: 0 auto;
+  padding: 16px;
+  background: linear-gradient(to bottom, $color-bg 0, $color-bg 130px, transparent 0);
+  background-repeat: no-repeat;
+
+  @media (min-width: $medium-screen) {
+    padding: 60px;
+  }
+
+  &.is-fixed-by-modal {
+    overflow: hidden;
+  }
+}

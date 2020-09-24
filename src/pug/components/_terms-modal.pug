@@ -1,0 +1,20 @@
+.modal.js-terms-modal(hidden)
+  button.modal__close-button-outer(type="button" onclick="termsModal.close()")
+  .modal__container
+    
+    header.modal__header
+      h2.modal__heading Terms & Conditions
+      button.modal__close-button-inner(type="button" onclick="termsModal.close()")
+        +svg("#clear-24px")(class="modal__close-icon")
+    
+    .modal__inner
+      p Lorem ipsum dolor sit amet consectetur adipisicing elit. In suscipit quos ipsum mollitia saepe hic, velit dolorem quam temporibus. Itaque hic numquam facilis voluptatem fugit aspernatur veniam in nihil totam.
+      ul
+        li Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        li Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        li Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        li Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+      p Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+      p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum eveniet, hic dicta itaque, ratione, amet voluptas officiis aspernatur quam sit velit consequuntur. Sit atque velit, asperiores adipisci natus officia labore?Natus itaque optio ipsa doloribus ipsum, sequi cumque, quisquam impedit quam rem ea accusamus laboriosam expedita omnis quibusdam odit pariatur sint inventore error, perspiciatis labore perferendis nulla quae! Laboriosam, ullam.Doloribus, illo sapiente. Dolorum incidunt fugit illo. Facilis aliquam assumenda ea. Aut temporibus quasi sint eligendi provident iure eos, fugiat adipisci, quis libero repellendus sit eveniet nemo explicabo unde eaque.Quibusdam quisquam, ipsam quis deserunt ad illo nihil nulla tempora recusandae ducimus, unde possimus repudiandae qui ipsa! Beatae, ullam iusto. Quo, voluptas tempora perspiciatis minus enim voluptatibus fugiat magnam aspernatur.Ipsam optio amet sed assumenda veniam temporibus consequuntur magnam similique voluptatibus? Adipisci perferendis repellendus, similique, ut obcaecati placeat esse error enim, ea in velit eos optio dolore. Adipisci, voluptate accusantium.Saepe officiis inventore, laborum quos eos, velit assumenda nulla quia pariatur cupiditate earum sapiente ab, consequatur quidem vero? In error, illum nemo tenetur iste ex.
+      .modal__btn-wrapper
+        button.modal__btn.btn.btn--primary(type="button" onclick="termsCheckbox.checked = true; termsModal.close()") I AGREE

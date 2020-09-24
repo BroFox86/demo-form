@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Containers
+   ========================================================================== */
+
+// @mixin mobile-container() {
+//   width: $mobile-width;
+//   max-width: $mobile-max-width;
+//   margin: auto;
+
+//   @media (min-width: $large-screen) {
+//     width: auto;
+//     max-width: none;
+//     margin: 0;
+//   }
+// }
+
+// @mixin desktop-container() {
+//   width: $desktop-width;
+//   margin: auto;
+// }
+
+/* ==========================================================================
+   Dimensions and positioning
+   ========================================================================== */
+
+@mixin center($direction: none, $offset: 0, $position: absolute) {
+  position: $position;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+
+  @if $direction == top {
+    bottom: auto;
+    top: $offset;
+  }
+
+  @if $direction == right {
+    right: $offset;
+    left: auto;
+  }
+
+  @if $direction == bottom {
+    top: auto;
+    bottom: $offset;
+  }
+
+  @if $direction == left {
+    right: auto;
+    left: $offset;
+  }
+}
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}

@@ -1,0 +1,60 @@
+:root {
+  box-sizing: border-box;
+}
+
+::-moz-focus-inner {
+  border: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  color: $color-primary;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+img {
+  object-fit: contain;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+textarea {
+  resize: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+button {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background: red;
+}

@@ -1,0 +1,11 @@
+include /pug/abstracts/*
+
+block variables
+
+doctype html
+html(lang="en")
+  include /pug/layout/_head
+
+  body.body
+    .body__container
+      block page-content

@@ -1,0 +1,47 @@
+@mixin button($theme: none) {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: var(--radius-tiny);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 100ms;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(.95);
+  }
+
+  @if $theme == primary {
+    background: $color-secondary;
+    color: white;
+    box-shadow: var(--shadow-small);
+
+    &:hover {
+      background: lighten($color-secondary, 5);
+    }
+  }
+
+  @if $theme == secondary {
+    background: $color-alert-danger;
+    color: white;
+    box-shadow: var(--shadow-small);
+
+    &:hover {
+      background: lighten($color-alert-danger, 7);
+    }
+  }
+
+  @if $theme == link {
+    padding: 6px;
+    color: $color-secondary;
+    text-decoration: none;
+
+    &:hover {
+      background: lighten($color-secondary, 60);
+    }
+  }
+}

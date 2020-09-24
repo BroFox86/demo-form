@@ -1,0 +1,35 @@
+{{!-- =======================================================================
+      Handlebars template that generates the scss file
+      ===================================================================== --}}
+
+{{#spritesheet}}
+$total_width: {{width}};
+$total_height: {{height}};
+{{/spritesheet}}
+
+{{#each sprites}}
+@mixin sprite-{{name}}($width) {
+  $original-width: {{px.width}};
+  $original-height: {{px.height}};
+
+  @if $original-width > $original-height {
+    $aspect-ratio: $original-width / $original-height;
+
+    width: $width;
+    height: $width / $aspect-ratio;
+  }
+
+  @if $original-width < $original-height {
+    $aspect-ratio: $original-height / $original-width;
+
+    width: $width;
+    height: $width * $aspect-ratio;
+  }
+
+  {{!-- background-image: url("../images/{{{escaped_image}}}"); --}}
+  background-size: (($total_width / {{width}}) * 100%) (($total_height / {{height}}) * 100%);
+  background-position-x: if( ($total_width - {{width}}) != 0, ({{offset_x}} / ($total_width - {{width}})) * -100%, 0%);
+  background-position-y: if( ($total_height - {{height}}) != 0, ({{offset_y}} / ($total_height - {{height}})) * -100%, 0%);
+}
+
+{{/each}}

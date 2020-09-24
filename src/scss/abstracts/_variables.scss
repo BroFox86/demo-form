@@ -1,0 +1,70 @@
+//
+// Breakpoints
+//
+$large-screen: 1200px;
+$medium-screen: 768px;
+$small-screen: 576px;
+
+//
+// Containers
+//
+// $mobile-width: percentage(336/375);
+// $mobile-max-width: 700px;
+// $desktop-width: 1175px;
+
+:root {
+  //
+  // Border radius
+  //
+  --radius-tiny: 4px;
+  --radius-small: 7px;
+  --radius-medium: 10px;
+  --radius-large: 30px;
+
+  //
+  // Shadows
+  //
+  --shadow-small: 0 1.6px 4px 0 rgba(0, 0, 0, 0.075);
+  --shadow-medium: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
+  --shadow-large: 0 16px 48px 0 rgba(0, 0, 0, 0.17);
+
+  //
+  // Fonts
+  //
+  --font-primary: "Roboto", sans-serif;
+
+  --font-size-base: 16px;
+  --font-size-small: 14px;
+  --font-size-tiny: 12px;
+
+  --font-size-h1: 33px;
+  --font-size-h2: 27px;
+  --font-size-h3: 23px;
+  --font-size-h4: var(--font-size-base);
+  --font-size-h5: var(--font-size-base);
+
+  @media (min-width: $medium-screen) {
+    --font-size-h1: 40px;
+    --font-size-h2: 34px;
+    --font-size-h3: 27px;
+    --font-size-h4: 23px;
+    --font-size-h5: 20px;
+  }
+}
+
+//
+// Colors
+//
+$grey-238: #eeeeee; // rgb(​ 238, ​ 238, ​ 238)
+$grey-245: #f5f5f5; // rgb(​ 245, ​ 245, ​ 245)
+
+$color-primary: #6200ee;
+$color-secondary: #49576c;
+$color-alert-success: #00bcd4;
+$color-bg: #9cc5dc;
+$color-text-primary: black;
+$color-success: #008786;
+$color-danger: #b00020;
+$color-alert-danger: #ea2269;
+$color-border: rgba(0, 0, 0, .38);
+$color-text-dimmed: rgba(0, 0, 0, .6);

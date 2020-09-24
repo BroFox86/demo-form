@@ -1,0 +1,20 @@
+.btn {
+
+  &--primary,
+  &--secondary {
+    width: 120px;
+    padding: 10px 0;
+  }
+
+  &--primary {
+    @include button(primary);
+  }
+
+  &--secondary {
+    @include button(secondary);
+  }
+
+  &--link {
+    @include button(link);
+  }
+}

@@ -1,0 +1,96 @@
+
+$total_width: 409;
+$total_height: 258;
+
+@mixin sprite-amex($width) {
+  $original-width: 203px;
+  $original-height: 128px;
+
+  @if $original-width > $original-height {
+    $aspect-ratio: $original-width / $original-height;
+
+    width: $width;
+    height: $width / $aspect-ratio;
+  }
+
+  @if $original-width < $original-height {
+    $aspect-ratio: $original-height / $original-width;
+
+    width: $width;
+    height: $width * $aspect-ratio;
+  }
+
+  background-size: (($total_width / 203) * 100%) (($total_height / 128) * 100%);
+  background-position-x: if( ($total_width - 203) != 0, (-206 / ($total_width - 203)) * -100%, 0%);
+  background-position-y: if( ($total_height - 128) != 0, (0 / ($total_height - 128)) * -100%, 0%);
+}
+
+@mixin sprite-discover($width) {
+  $original-width: 202px;
+  $original-height: 128px;
+
+  @if $original-width > $original-height {
+    $aspect-ratio: $original-width / $original-height;
+
+    width: $width;
+    height: $width / $aspect-ratio;
+  }
+
+  @if $original-width < $original-height {
+    $aspect-ratio: $original-height / $original-width;
+
+    width: $width;
+    height: $width * $aspect-ratio;
+  }
+
+  background-size: (($total_width / 202) * 100%) (($total_height / 128) * 100%);
+  background-position-x: if( ($total_width - 202) != 0, (-205 / ($total_width - 202)) * -100%, 0%);
+  background-position-y: if( ($total_height - 128) != 0, (-130 / ($total_height - 128)) * -100%, 0%);
+}
+
+@mixin sprite-mc($width) {
+  $original-width: 204px;
+  $original-height: 128px;
+
+  @if $original-width > $original-height {
+    $aspect-ratio: $original-width / $original-height;
+
+    width: $width;
+    height: $width / $aspect-ratio;
+  }
+
+  @if $original-width < $original-height {
+    $aspect-ratio: $original-height / $original-width;
+
+    width: $width;
+    height: $width * $aspect-ratio;
+  }
+
+  background-size: (($total_width / 204) * 100%) (($total_height / 128) * 100%);
+  background-position-x: if( ($total_width - 204) != 0, (0 / ($total_width - 204)) * -100%, 0%);
+  background-position-y: if( ($total_height - 128) != 0, (0 / ($total_height - 128)) * -100%, 0%);
+}
+
+@mixin sprite-visa($width) {
+  $original-width: 203px;
+  $original-height: 128px;
+
+  @if $original-width > $original-height {
+    $aspect-ratio: $original-width / $original-height;
+
+    width: $width;
+    height: $width / $aspect-ratio;
+  }
+
+  @if $original-width < $original-height {
+    $aspect-ratio: $original-height / $original-width;
+
+    width: $width;
+    height: $width * $aspect-ratio;
+  }
+
+  background-size: (($total_width / 203) * 100%) (($total_height / 128) * 100%);
+  background-position-x: if( ($total_width - 203) != 0, (0 / ($total_width - 203)) * -100%, 0%);
+  background-position-y: if( ($total_height - 128) != 0, (-130 / ($total_height - 128)) * -100%, 0%);
+}
+

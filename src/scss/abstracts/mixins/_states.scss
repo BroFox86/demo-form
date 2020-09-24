@@ -1,0 +1,24 @@
+/* ==========================================================================
+   Hover & active states of elements
+   ========================================================================== */
+
+@mixin brightness-on-hover($brightness) {
+  &:hover {
+    filter: brightness($brightness);
+  }
+}
+
+@mixin transparentize-on-hover($opacity: .85) {
+  &:hover {
+    opacity: $opacity;
+  }
+}
+
+@mixin scale-on-active($scale: .95) {
+  transition: transform 150ms ease-in;
+  will-change: transform;
+
+  &:active {
+    transform: scale($scale);
+  }
+}
