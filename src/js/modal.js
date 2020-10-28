@@ -15,6 +15,8 @@ class Modal {
 
     this.modal.removeAttribute("aria-hidden");
 
+    this.modal.setAttribute( "aria-modal", true );
+
     setTimeout(() => {
 
       this.modal.classList.add("is-visible");
@@ -36,6 +38,8 @@ class Modal {
     setTimeout(() => {
 
       this.modal.hidden = true;
+
+      this.modal.removeAttribute("aria-modal");
 
     }, duration );
   }

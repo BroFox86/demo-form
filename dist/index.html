@@ -28,7 +28,7 @@
               <b>DANGER: </b>
               <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex officiis itaque atque, provident ipsam!</span>
             </div>
-            <button class="alert__close-btn" type="button" onclick="alertNote.close(this)">
+            <button class="alert__close-btn" type="button" onclick="alertNote.close(this)" aria-label="Close">
               <svg class="alert__close-icon">
                 <use xlink:href="images/sprite.svg#clear-24px"></use>
               </svg>
@@ -39,7 +39,7 @@
               <!-- Amount-->
               <div class="form__amount form__field field-group">
                 <div class="field-group__input-group">
-                  <input class="field-group__input" id="amount" name="amount" type="number" min="0" pattern="\d*" placeholder="Enter amount" value="1000" required>
+                  <input class="field-group__input" id="amount" name="amount" type="number" min="0" pattern="\d*" placeholder="Enter amount" value="1000" aria-label="Amount of money" required>
                   <svg class="field-group__icon">
                     <use xlink:href="images/sprite.svg#attach_money-24px"></use>
                   </svg>
@@ -464,7 +464,7 @@
             <!-- Terms & Conditions-->
             <div>
               <div class="checkbox">
-                <input id="termsCheckbox" name="terms" type="checkbox" required hidden>
+                <input id="termsCheckbox" name="terms" type="checkbox" label="Open modal" required hidden>
                 <span class="checkbox__field" onclick="termsModal.open()">
                   <span class="checkbox__field-inner">
                     <svg class="checkbox__icon">
@@ -477,12 +477,12 @@
               </div>
             </div>
           </div><!-- Terms modal-->
-          <div class="modal js-terms-modal" hidden>
-            <button class="modal__close-button-outer" type="button" onclick="termsModal.close()"></button>
+          <div class="modal js-terms-modal" role="dialog" aria-labelledby="tcHeader" hidden>
+            <div class="modal__close-button-outer" onclick="termsModal.close()"></div>
             <div class="modal__container">
               <header class="modal__header">
-                <h2 class="modal__heading">Terms & Conditions</h2>
-                <button class="modal__close-button-inner" type="button" onclick="termsModal.close()">
+                <h2 class="modal__heading" id="tcHeader">Terms & Conditions</h2>
+                <button class="modal__close-button-inner" type="button" onclick="termsModal.close()" aria-label="Close modal">
                   <svg class="modal__close-icon">
                     <use xlink:href="images/sprite.svg#clear-24px"></use>
                   </svg>

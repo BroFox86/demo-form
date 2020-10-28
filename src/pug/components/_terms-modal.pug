@@ -1,10 +1,10 @@
-.modal.js-terms-modal(hidden)
-  button.modal__close-button-outer(type="button" onclick="termsModal.close()")
+.modal.js-terms-modal(role="dialog" aria-labelledby="tcHeader" hidden)
+  .modal__close-button-outer(onclick="termsModal.close()")
   .modal__container
     
     header.modal__header
-      h2.modal__heading Terms & Conditions
-      button.modal__close-button-inner(type="button" onclick="termsModal.close()")
+      h2.modal__heading#tcHeader Terms & Conditions
+      button.modal__close-button-inner(type="button" onclick="termsModal.close()" aria-label="Close modal")
         +svg("#clear-24px")(class="modal__close-icon")
     
     .modal__inner

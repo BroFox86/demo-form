@@ -15,7 +15,7 @@ block page-content
         .alert__text 
           b DANGER: 
           span Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex officiis itaque atque, provident ipsam!
-        button.alert__close-btn(type="button" onclick="alertNote.close(this)")
+        button.alert__close-btn(type="button" onclick="alertNote.close(this)" aria-label="Close")
           +svg("#clear-24px")(class="alert__close-icon")
 
       fieldset.form__fieldset
@@ -24,7 +24,16 @@ block page-content
           // Amount
           .form__amount.form__field.field-group
             .field-group__input-group
-              input.field-group__input#amount(name="amount" type="number" min="0" pattern="\\d*" placeholder="Enter amount" value="1000" required)
+              input.field-group__input#amount(
+                name="amount" 
+                type="number" 
+                min="0" 
+                pattern="\\d*" 
+                placeholder="Enter amount" 
+                value="1000"
+                aria-label="Amount of money" 
+                required
+              )
               +svg("#attach_money-24px")(class="field-group__icon")
             
           // Fake field for better alignment on all screen sizes
@@ -422,7 +431,7 @@ block page-content
         // Terms & Conditions
         div
           .checkbox
-            input#termsCheckbox(name="terms" type="checkbox" required hidden)
+            input#termsCheckbox(name="terms" type="checkbox" label="Open modal" required hidden)
             span.checkbox__field(onclick="termsModal.open()")
               span.checkbox__field-inner
                 +svg("#done-24px")(class="checkbox__icon")
