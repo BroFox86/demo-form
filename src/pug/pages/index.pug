@@ -27,8 +27,7 @@ block page-content
               input.field-group__input#amount(
                 name="amount" 
                 type="number" 
-                min="0" 
-                pattern="\\d*" 
+                min="0"
                 placeholder="Enter amount" 
                 value="1000"
                 aria-label="Amount of money" 
@@ -431,8 +430,8 @@ block page-content
         // Terms & Conditions
         div
           .checkbox
-            input#termsCheckbox(name="terms" type="checkbox" label="Open modal" required hidden)
-            span.checkbox__field(onclick="termsModal.open()")
+            input#termsCheckbox(name="terms" type="checkbox" aria-label="Open modal" required hidden)
+            button.checkbox__field(type="button" aria-label="Open modal" onclick="termsModal.open()")
               span.checkbox__field-inner
                 +svg("#done-24px")(class="checkbox__icon")
             span.checkbox__text I agree to 
