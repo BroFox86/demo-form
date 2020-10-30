@@ -26,11 +26,11 @@
       border-radius: 2px;
     }
 
-    input[disabled] ~ span & {
+    input[disabled] ~ button & {
       opacity: .55;
     }
 
-    input:checked ~ span & {
+    input:checked ~ button & {
       border-color: $color-success;
       background: $color-success;
     }
@@ -42,7 +42,7 @@
     display: none;
     fill: white;
 
-    input:checked ~ span & {
+    input:checked ~ button & {
       display: block;
     }
   }
