@@ -1,59 +1,80 @@
 /**
  * Modal window.
  * @param {string} selector - Container selector.
- * @version 6.0.4-M
+ * @version 6.0.7
  */
 class Modal {
 
   constructor( selector ) {
-    this.modal = document.querySelector( selector );
-    this.container = this.modal.querySelector(".modal__container");
+    this._modal = document.querySelector( selector );
+    this._container = this._modal.querySelector(".modal__container");
+    this._listenKeyDown = this._handleKeyDown( this._modal );
   }
 
   open() {
-    this.modal.hidden = false;
+    this._modal.hidden = false;
 
-    this.modal.removeAttribute("aria-hidden");
+    this._modal.setAttribute( "aria-modal", true );
 
-    this.modal.setAttribute( "aria-modal", true );
+    this._togglePageScroll();
+
+    document.addEventListener( "keydown", this._listenKeyDown );
 
     setTimeout(() => {
 
-      this.modal.classList.add("is-visible");
-
-      this._togglePageScroll();
+      this._modal.classList.add("is-visible");
 
     }, 20 );
   }
 
   close() {
-    const duration = this._getDuration( this.container );
+    const duration = this._getDuration( this._container );
 
-    this.modal.classList.remove("is-visible");
-
-    this.modal.setAttribute("aria-hidden", "true");
+    this._modal.classList.remove("is-visible");
 
     this._togglePageScroll();
 
     setTimeout(() => {
 
-      this.modal.hidden = true;
+      this._modal.hidden = true;
 
-      this.modal.removeAttribute("aria-modal");
+      this._modal.removeAttribute("aria-modal");
+
+      document.removeEventListener( "keydown", this._listenKeyDown );
 
     }, duration );
   }
 
+  _handleKeyDown( element ) {
+
+    return ( e ) => {
+      const focusElements = getFocusElements( element );
+      const lastFocusElement = focusElements[ focusElements.length - 1 ];
+      
+      if ( e.code === "Tab" && e.target === lastFocusElement ) {
+    
+        e.preventDefault();
+        
+        focusElements[ 0 ].focus();
+      }
+    
+      if ( e.code === "Escape" ) {
+        this.close();
+      }
+    };
+  }
+
   _togglePageScroll() {
     const body = document.body;
-    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
     const FIXED_CLASS = "is-fixed-by-modal";
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+    const duration = this._getDuration( this._container );
 
     if ( !body.matches(`.${FIXED_CLASS}`) ) {
 
       body.classList.add( FIXED_CLASS );
 
-      body.style.marginRight = `${scrollbar}px`;
+      body.style.paddingRight = `${scrollbar}px`;
 
     } else {
 
@@ -61,9 +82,9 @@ class Modal {
 
         body.classList.remove( FIXED_CLASS );
 
-        body.style.marginRight = "";
+        body.style.paddingRight = "";
 
-      }, this._getDuration( this.container ));
+      }, duration );
     }
   }
 
@@ -74,9 +95,20 @@ class Modal {
   }
 }
 
+function getFocusElements( element ) {
+  return ( element.querySelectorAll(
+    `a,
+     button:not(:disabled),
+     input:not(:disabled),
+     textarea:not(:disabled),
+     select:not(:disabled),
+     *[tabindex]`
+  ));
+}
+
 try {
 
-  window.termsModal = new Modal(".js-terms-modal");
+  window.termsModal = new Modal(".js-terms-modal"); 
 
 } catch( error ) {
 
