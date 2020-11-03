@@ -1,7 +1,7 @@
 /**
  * Modal window.
  * @param {string} selector - Container selector.
- * @version 6.0.7
+ * @version 6.0.8
  */
 class Modal {
 
@@ -9,16 +9,25 @@ class Modal {
     this._modal = document.querySelector( selector );
     this._container = this._modal.querySelector(".modal__container");
     this._listenKeyDown = this._handleKeyDown( this._modal );
+    this._pressed = new Set();
+    this._lastFocus = null;
   }
 
   open() {
+    // Save last focused element.
+    this._lastFocus = document.activeElement;
+
+    document.activeElement.blur();
+
     this._modal.hidden = false;
 
     this._modal.setAttribute( "aria-modal", true );
 
-    this._togglePageScroll();
+    togglePageScroll( this._container );
 
     document.addEventListener( "keydown", this._listenKeyDown );
+    
+    document.addEventListener( "keyup", this._clearPressed.bind( this ) );
 
     setTimeout(() => {
 
@@ -28,11 +37,11 @@ class Modal {
   }
 
   close() {
-    const duration = this._getDuration( this._container );
+    const duration = getDuration( this._container );
 
     this._modal.classList.remove("is-visible");
 
-    this._togglePageScroll();
+    togglePageScroll( this._container );
 
     setTimeout(() => {
 
@@ -40,58 +49,85 @@ class Modal {
 
       this._modal.removeAttribute("aria-modal");
 
+      this._lastFocus.focus();
+
       document.removeEventListener( "keydown", this._listenKeyDown );
+
+      document.removeEventListener( "keyup", this._clearPressed.bind( this ) );
 
     }, duration );
   }
 
   _handleKeyDown( element ) {
-
-    return ( e ) => {
+    
+    return ( event ) => {
+      const pressed = this._pressed;
       const focusElements = getFocusElements( element );
+      const firstFocusElement = focusElements[ 0 ];
       const lastFocusElement = focusElements[ focusElements.length - 1 ];
-      
-      if ( e.code === "Tab" && e.target === lastFocusElement ) {
-    
-        e.preventDefault();
-        
-        focusElements[ 0 ].focus();
-      }
-    
-      if ( e.code === "Escape" ) {
+      const isOnFirstFocus = event.target === firstFocusElement;
+      const isOnLastFocus = event.target === lastFocusElement;
+
+      pressed.add( event.key );
+
+      if ( event.key === "Escape" ) {
         this.close();
+      }
+
+      if ( !pressed.has("Tab") ) {
+        return;
+      }
+
+      if ( document.activeElement === document.body ) {
+
+        event.preventDefault();
+
+        firstFocusElement.focus();
+      }
+
+      if ( isOnLastFocus && !pressed.has("Shift") ) {
+
+        event.preventDefault();
+
+        firstFocusElement.focus();
+      }
+
+      if ( isOnFirstFocus && pressed.has("Shift") ) {
+
+        event.preventDefault();
+
+        lastFocusElement.focus();
       }
     };
   }
 
-  _togglePageScroll() {
-    const body = document.body;
-    const FIXED_CLASS = "is-fixed-by-modal";
-    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
-    const duration = this._getDuration( this._container );
-
-    if ( !body.matches(`.${FIXED_CLASS}`) ) {
-
-      body.classList.add( FIXED_CLASS );
-
-      body.style.paddingRight = `${scrollbar}px`;
-
-    } else {
-
-      setTimeout(() => {
-
-        body.classList.remove( FIXED_CLASS );
-
-        body.style.paddingRight = "";
-
-      }, duration );
-    }
+  _clearPressed( event ) {
+    this._pressed.delete( event.key );
   }
+}
 
-  _getDuration( element ) {
-    return parseFloat(
-      getComputedStyle( element ).transitionDuration
-    ) * 1000;
+function togglePageScroll( container ) {
+  const FIXED_CLASS = "is-fixed-by-modal";
+  const target = document.body;
+  // const target = document.querySelector(".js-modal-header-toggle");
+  const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+  const duration = getDuration( container );
+
+  if ( !target.matches(`.${FIXED_CLASS}`) ) {
+
+    target.classList.add( FIXED_CLASS );
+
+    target.style.paddingRight = `${scrollbar}px`;
+
+  } else {
+
+    setTimeout(() => {
+
+      target.classList.remove( FIXED_CLASS );
+
+      target.style.paddingRight = "";
+
+    }, duration );
   }
 }
 
@@ -104,6 +140,12 @@ function getFocusElements( element ) {
      select:not(:disabled),
      *[tabindex]`
   ));
+}
+
+function getDuration( element ) {
+  return parseFloat(
+    getComputedStyle( element ).transitionDuration
+  ) * 1000;
 }
 
 try {

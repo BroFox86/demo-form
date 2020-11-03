@@ -6,7 +6,8 @@ block variables
 block page-content
   .form
     header.form__header
-      img.form__logo(src="images/logo.png", alt="")
+      a(href="#")
+        img.form__logo(src="images/logo.png", alt="Site logo") 
 
     form.form__inner.js-material-form-toggle.js-validation-toggle(action="#")
 
@@ -430,9 +431,16 @@ block page-content
         // Terms & Conditions
         div
           .checkbox
-            input#termsCheckbox(name="terms" type="checkbox" aria-label="Open modal" required hidden)
-            button.checkbox__field(type="button" aria-label="Open modal" onclick="termsModal.open()")
-              span.checkbox__field-inner
+            input#termsCheckbox( 
+              name="terms" 
+              type="checkbox" 
+              aria-label="Open modal"
+              onChange="termsModal.open()"
+              required
+              hidden
+            )
+            button.checkbox__wrapper(type="button" aria-label="Open modal" onclick="termsModal.open()")
+              span.checkbox__square
                 +svg("#done-24px")(class="checkbox__icon")
             span.checkbox__text I agree to 
               button.btn.btn--link(type="button" onclick="termsModal.open()") Terms & Conditions
@@ -443,3 +451,10 @@ block page-content
       .form__buttons
         button.form__btn.btn.btn--primary(type="submit") CONFIRM
         button.form__btn.btn.btn--secondary(type="reset") CLEAR
+
+
+
+
+  
+ 
+
