@@ -1,49 +1,65 @@
 /**
  * Modal window.
  * @param {string} selector - Container selector.
- * @version 6.0.8
+ * @version 6.0.10
  */
 class Modal {
 
   constructor( selector ) {
     this._modal = document.querySelector( selector );
-    this._container = this._modal.querySelector(".modal__container");
-    this._listenKeyDown = this._handleKeyDown( this._modal );
     this._pressed = new Set();
     this._lastFocus = null;
+    this._listenFocusIn = null;
+    this._listenKeydown = null;
+    this._listenClearPressed = null;
+
+    // To avoid inheritance issues.
+    if ( this._modal ) {
+      this._container = this._modal.querySelector(".modal__container");
+    }
   }
 
   open() {
     // Save last focused element.
     this._lastFocus = document.activeElement;
 
-    document.activeElement.blur();
-
     this._modal.hidden = false;
 
     this._modal.setAttribute( "aria-modal", true );
 
-    togglePageScroll( this._container );
+    togglePageScroll();
 
-    document.addEventListener( "keydown", this._listenKeyDown );
+    this._listenFocusIn = this._handleFocusIn( this._container ).bind(this);
+
+    this._listenKeydown = this._handleKeyDown.bind(this);
+
+    this._listenClearPressed = this._clearPressed.bind(this);
     
-    document.addEventListener( "keyup", this._clearPressed.bind( this ) );
+    document.addEventListener( "focusin", this._listenFocusIn );
+
+    document.addEventListener( "keydown", this._listenKeydown );
+    
+    document.addEventListener( "keyup", this._listenClearPressed );
 
     setTimeout(() => {
-
       this._modal.classList.add("is-visible");
-
     }, 20 );
   }
 
   close() {
-    const duration = getDuration( this._container );
+    const duration = this._getDuration( this._container );
 
     this._modal.classList.remove("is-visible");
 
-    togglePageScroll( this._container );
+    document.removeEventListener( "focusin", this._listenFocusIn ); 
+
+    document.removeEventListener( "keydown", this._listenKeydown );
+
+    document.removeEventListener( "keyup", this._listenClearPressed );
 
     setTimeout(() => {
+
+      togglePageScroll();
 
       this._modal.hidden = true;
 
@@ -51,69 +67,70 @@ class Modal {
 
       this._lastFocus.focus();
 
-      document.removeEventListener( "keydown", this._listenKeyDown );
-
-      document.removeEventListener( "keyup", this._clearPressed.bind( this ) );
-
     }, duration );
   }
 
-  _handleKeyDown( element ) {
-    
-    return ( event ) => {
+  _handleFocusIn( container ) { 
+
+    return ({ target, relatedTarget }) => {
       const pressed = this._pressed;
-      const focusElements = getFocusElements( element );
+      const focusElements = getFocusElements( container );
       const firstFocusElement = focusElements[ 0 ];
       const lastFocusElement = focusElements[ focusElements.length - 1 ];
-      const isOnFirstFocus = event.target === firstFocusElement;
-      const isOnLastFocus = event.target === lastFocusElement;
 
-      pressed.add( event.key );
-
-      if ( event.key === "Escape" ) {
-        this.close();
-      }
-
-      if ( !pressed.has("Tab") ) {
+      if ( pressed.has("Shift") && relatedTarget === firstFocusElement ) {
+        lastFocusElement.focus();
+        return;
+      } 
+      
+      if ( !pressed.has("Shift") && relatedTarget === lastFocusElement ) {
+        firstFocusElement.focus();
         return;
       }
 
-      if ( document.activeElement === document.body ) {
+      if ( !container.contains( target ) ) {
 
-        event.preventDefault();
+        if ( pressed.has("Shift") ) {
+          
+          lastFocusElement.focus();
 
-        firstFocusElement.focus();
-      }
-
-      if ( isOnLastFocus && !pressed.has("Shift") ) {
-
-        event.preventDefault();
-
-        firstFocusElement.focus();
-      }
-
-      if ( isOnFirstFocus && pressed.has("Shift") ) {
-
-        event.preventDefault();
-
-        lastFocusElement.focus();
+        } else {
+          firstFocusElement.focus();
+        }
       }
     };
   }
 
-  _clearPressed( event ) {
-    this._pressed.delete( event.key );
+  _handleKeyDown({ key }) {
+    
+    if ( key === "Escape" ) {
+
+      this.close();
+
+    } else {
+
+      this._pressed.add( key );
+    }
+  }
+
+  _clearPressed({ key }) {
+    this._pressed.delete( key );
+  }
+
+  _getDuration( element ) {
+    return parseFloat(
+      getComputedStyle( element ).transitionDuration
+    ) * 1000;
   }
 }
 
-function togglePageScroll( container ) {
+function togglePageScroll() {
   const FIXED_CLASS = "is-fixed-by-modal";
   const target = document.body;
   // const target = document.querySelector(".js-modal-header-toggle");
   const scrollbar = window.innerWidth - document.documentElement.clientWidth;
-  const duration = getDuration( container );
 
-  if ( !target.matches(`.${FIXED_CLASS}`) ) {
+  if ( !target.classList.contains( FIXED_CLASS ) ) {
 
     target.classList.add( FIXED_CLASS );
 
@@ -121,31 +138,21 @@ function togglePageScroll( container ) {
 
   } else {
 
-    setTimeout(() => {
+    target.classList.remove( FIXED_CLASS );
 
-      target.classList.remove( FIXED_CLASS );
-
-      target.style.paddingRight = "";
-
-    }, duration );
+    target.style.paddingRight = "";
   }
-}
+} 
 
-function getFocusElements( element ) {
-  return ( element.querySelectorAll(
+function getFocusElements( container ) {
+  return ( container.querySelectorAll(
     `a,
      button:not(:disabled),
      input:not(:disabled),
      textarea:not(:disabled),
      select:not(:disabled),
-     *[tabindex]`
+     *[tabindex]:not(:disabled)`
   ));
-}
-
-function getDuration( element ) {
-  return parseFloat(
-    getComputedStyle( element ).transitionDuration
-  ) * 1000;
 }
 
 try {
@@ -156,4 +163,4 @@ try {
 
   console.log( error );
 
-}
+} 
