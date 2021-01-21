@@ -49,14 +49,12 @@ block page-content
             .field-group__input-group
               input.field-group__input#firstName(name="firstName" autocomplete="given-name" placeholder="Joe" required)
               label.field-group__label(for="firstName") First Name
-              +svg("#error_outline-24px")(class="field-group__required")
           
           // Last name
           .form__field.field-group
             .field-group__input-group
               input.field-group__input#lastName(name="lastName" autocomplete="family-name" placeholder="Doe" required)
               label.field-group__label(for="lastName") Last Name
-              +svg("#error_outline-24px")(class="field-group__required")
 
         .form__fields
 
@@ -65,14 +63,12 @@ block page-content
             .field-group__input-group
               input.field-group__input#phone(name="phone" autocomplete="tel" pattern="^\\d{3}[\\-\\s]?\\d{3}[\\-\\s]?\\d{4}$" placeholder="123-456-7890" required)
               label.field-group__label(for="phone") Phone Number
-              +svg("#error_outline-24px")(class="field-group__required")
 
           // Email
           .form__field.field-group
             .field-group__input-group
               input.field-group__input#email(name="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" placeholder="email@example.com" required)
               label.field-group__label(for="email") Email Address
-              +svg("#error_outline-24px")(class="field-group__required")
         
       fieldset.form__fieldset
         legend.form__legend Payment Information
@@ -124,8 +120,7 @@ block page-content
         .form__field.field-group
           .field-group__input-group
             input.field-group__input#address(name="billing-address" autocomplete="address-line1")
-            label.field-group__label(for="address") Billing Address
-            +svg("#error_outline-24px")(class="field-group__required")
+            label.field-group__label(for="address") Billing Addres
 
         .form__fields
 
@@ -134,7 +129,6 @@ block page-content
             .field-group__input-group
               input.field-group__input#city(name="city" autocomplete="address-level2")
               label.field-group__label(for="city") City
-              +svg("#error_outline-24px")(class="field-group__required")
           
           // State/Region
           .form__field.field-group
@@ -153,7 +147,6 @@ block page-content
             .field-group__input-group
               input.field-group__input#zipcode(name="zip-code" autocomplete="postal-code")
               label.field-group__label(for="zipcode") Zipcode
-              +svg("#error_outline-24px")(class="field-group__required")
           
           // Country
           .form__field.field-group
@@ -421,7 +414,7 @@ block page-content
           //-   .field-group__input-group
           //-     input.field-group__input.js-datepicker-toggle#travelDate(name="travel-date" readonly required)
           //-     label.field-group__label(for="travelDate") Travel Date
-          //-     +svg("#error_outline-24px")(class="field-group__required")
+          
           
           //- // Fake field for better alignment on all screen sizes
           //- .form__field.field-group(style="visibility: hidden")

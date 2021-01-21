@@ -2,9 +2,12 @@
   width: 100%;
   max-width: 700px;
   margin: auto;
-  border-radius: var(--radius-medium);
   background: white;
-  box-shadow: var(--shadow-medium);
+  
+  @media (min-width: $medium-screen) {
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-medium);
+  }
 
   &__alert {
     margin-bottom: 20px;
@@ -12,13 +15,13 @@
 
   &__header {
     padding: 25px 16px;
-    border-radius: var(--radius-medium) var(--radius-medium) 0 0;
     background: $color-secondary;
     color: white;
     text-align: center;
 
     @media (min-width: $medium-screen) {
       padding: 25px 60px;
+      border-radius: var(--radius-medium) var(--radius-medium) 0 0;
     }
   }
 
